@@ -21,9 +21,9 @@ export default function SearchPage() {
       <div className="mx-auto flex min-h-[calc(100vh-78px)] w-full max-w-[430px] flex-col">
         {/* Top Bar */}
         <div className="mb-5 flex items-center justify-between">
-          <button className="flex h-10 w-10 items-center justify-center rounded-md border border-white/40">
-            <CastScreenIcon />
-          </button>
+          <button className="flex h-10 w-10 items-center justify-center">
+  <CastScreenIcon />
+</button>
 
           <img
   src="/logo.png"
@@ -84,11 +84,38 @@ export default function SearchPage() {
 
 function CastScreenIcon() {
   return (
-    <div className="relative h-[18px] w-[22px]">
-      <div className="absolute inset-0 rounded-[2px] border-2 border-white" />
-      <div className="absolute bottom-[-3px] left-1/2 h-[2px] w-[8px] -translate-x-1/2 bg-white" />
-      <div className="absolute left-[3px] bottom-[3px] h-[8px] w-[8px] rounded-bl-[1px] border-l-2 border-b-2 border-white" />
-      <div className="absolute left-[3px] bottom-[3px] h-[12px] w-[12px] rounded-bl-[1px] border-l-2 border-b-2 border-white opacity-90" />
-    </div>
+    <svg
+      width="26"
+      height="26"
+      viewBox="0 0 24 24"
+      fill="none"
+      className="text-white"
+    >
+      {/* 外框 */}
+      <rect
+        x="2"
+        y="3"
+        width="20"
+        height="14"
+        rx="2"
+        stroke="currentColor"
+        strokeWidth="2"
+      />
+
+      {/* Cast 波紋 */}
+      <path
+        d="M4 15a5 5 0 0 1 5 5"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+      />
+      <path
+        d="M4 11a9 9 0 0 1 9 9"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+      />
+      <circle cx="4" cy="19" r="1.5" fill="currentColor" />
+    </svg>
   )
 }
