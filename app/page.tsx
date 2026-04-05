@@ -1,12 +1,7 @@
 'use client'
 
-import {
-  useState,
-  type Dispatch,
-  type SetStateAction,
-  type ComponentType,
-} from 'react'
-import { House, Search, UserRound } from 'lucide-react'
+import { useState, type Dispatch, type SetStateAction } from 'react'
+import { House, Search, UserRound, type LucideIcon } from 'lucide-react'
 import HomePage from '@/components/vibetv/homepage'
 import SearchPage from '@/components/vibetv/searchpage'
 import ProfilePage from '@/components/vibetv/profilepage'
@@ -38,10 +33,7 @@ function BottomNav({
   page: AppPage
   setPage: Dispatch<SetStateAction<AppPage>>
 }) {
-  const items: {
-    key: AppPage
-    icon: ComponentType<{ className?: string }>
-  }[] = [
+  const items: { key: AppPage; icon: LucideIcon }[] = [
     { key: 'home', icon: House },
     { key: 'search', icon: Search },
     { key: 'profile', icon: UserRound },
@@ -53,11 +45,11 @@ function BottomNav({
     <div className="sticky bottom-0 z-50 bg-black px-8 pb-4 pt-2">
       <div className="relative flex h-[58px] items-center rounded-full bg-[#858585] px-[8px]">
         <div
-  className="absolute top-1/2 h-[45px] w-[120px] -translate-y-1/2 rounded-full bg-[#C4C4C4] transition-[left] duration-300 ease-out"
-  style={{
-    left: `calc(${activeIndex} * ((100% - 16px) / 3) + ((100% - 16px) / 3 - 120px) / 2 + 8px)`,
-  }}
-/>
+          className="absolute top-1/2 h-[45px] w-[120px] -translate-y-1/2 rounded-full bg-[#C4C4C4] transition-[left] duration-300 ease-out"
+          style={{
+            left: `calc(${activeIndex} * ((100% - 16px) / 3) + ((100% - 16px) / 3 - 120px) / 2 + 8px)`,
+          }}
+        />
 
         {items.map(({ key, icon: Icon }) => (
           <button
@@ -66,11 +58,11 @@ function BottomNav({
             className="relative z-10 flex flex-1 items-center justify-center"
           >
             <Icon
-  strokeWidth={page === key ? 2.8 : 2}
-  className={`h-6 w-6 ${
-    page === key ? 'text-[#C982AE]' : 'text-white'
-  }`}
-/>
+              strokeWidth={page === key ? 2.8 : 2}
+              className={`h-6 w-6 transition-all duration-200 ${
+                page === key ? 'text-[#C982AE]' : 'text-white'
+              }`}
+            />
           </button>
         ))}
       </div>
