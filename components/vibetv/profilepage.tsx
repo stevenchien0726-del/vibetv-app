@@ -18,8 +18,8 @@ import {
 import { useState, type ReactNode } from 'react'
 import { Ticket } from 'lucide-react'
 
-const downloadItems = new Array(4).fill(null)
-const recentItems = new Array(4).fill(null)
+const downloadItems = new Array(6).fill(null)
+const recentItems = new Array(10).fill(null)
 
 const hubItems = [
   { label: 'VIBELINK', icon: '💜' },
@@ -71,7 +71,7 @@ export default function ProfilePage() {
 
         <div className="mt-5">
           <div className="mb-3 text-[18px] font-medium text-white">繼續觀賞</div>
-          <PosterRow items={recentItems} cardClassName="h-[120px] min-w-[96px]" />
+          <PosterRow items={recentItems} cardClassName="h-[140px] min-w-[100px]" />
         </div>
 
         <div className="mt-6 flex items-center justify-between">
@@ -96,28 +96,38 @@ export default function ProfilePage() {
         </div>
       </div>
 
-      {menuOpen && (
-        <div
-          className="absolute inset-0 z-40 bg-black/10 px-4 pt-[62px]"
-          onClick={() => setMenuOpen(false)}
-        >
-          <div className="flex justify-center">
-            <div
-              className="h-fit w-full max-w-[360px] rounded-[24px] border-2 border-[#d889c7] bg-[#d9d9d9]/95 px-8 py-7 text-black backdrop-blur-sm"
-              onClick={(e) => e.stopPropagation()}
-            >
-              <div className="space-y-9 text-[20px] font-medium">
-                <MenuItem icon={<Ticket className="h-6 w-6 stroke-[2]" />} label="Vibe會員" />
-                <MenuItem icon={<UserRound className="h-6 w-6 stroke-[2]" />} label="我的帳號" />
-                <MenuItem icon={<LayoutGrid className="h-6 w-6 stroke-[2]" />} label="Vibe Hub" />
-                <MenuItem icon={<CircleHelp className="h-6 w-6 stroke-[2]" />} label="使用說明" />
-                <MenuItem icon={<Settings className="h-6 w-6 stroke-[2]" />} label="設定" />
-                <MenuItem icon={<Bell className="h-6 w-6 stroke-[2]" />} label="通知" />
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
+      <div
+  className={`absolute inset-0 z-40 px-4 pt-[62px] transition-all duration-300 ease-out ${
+    menuOpen
+      ? 'pointer-events-auto bg-black/10 opacity-100'
+      : 'pointer-events-none bg-black/0 opacity-0'
+  }`}
+  onClick={() => setMenuOpen(false)}
+>
+  <div className="flex justify-center">
+    <div
+      className={`h-fit w-full max-w-[360px] rounded-[24px] border-2 border-[#d889c7] bg-[#d9d9d9]/95 px-8 py-7 text-black backdrop-blur-sm transition-all duration-300 ease-out ${
+        menuOpen
+          ? 'scale-100 opacity-100'
+          : 'scale-90 opacity-0'
+      }`}
+      onClick={(e) => e.stopPropagation()}
+    >
+      <div className="space-y-9 text-[20px] font-medium">
+        <MenuItem
+  icon={<Ticket className="h-6 w-6 stroke-[2]" />}
+  label="Vibe會員"
+  onClick={() => window.open('https://vibelink-j9m5.vercel.app/', '_blank')}
+/>
+        <MenuItem icon={<UserRound className="h-6 w-6 stroke-[2]" />} label="我的帳號" />
+        <MenuItem icon={<LayoutGrid className="h-6 w-6 stroke-[2]" />} label="Vibe Hub" />
+        <MenuItem icon={<CircleHelp className="h-6 w-6 stroke-[2]" />} label="使用說明" />
+        <MenuItem icon={<Settings className="h-6 w-6 stroke-[2]" />} label="設定" />
+        <MenuItem icon={<Bell className="h-6 w-6 stroke-[2]" />} label="通知" />
+      </div>
+    </div>
+  </div>
+</div>
     </div>
   )
 }
@@ -164,12 +174,17 @@ function QuickAction({
 function MenuItem({
   icon,
   label,
+  onClick,
 }: {
   icon: ReactNode
   label: string
+  onClick?: () => void
 }) {
   return (
-    <button className="flex w-full items-center justify-center gap-5 text-center">
+    <button
+      onClick={onClick}
+      className="flex w-full items-center justify-center gap-5 text-center"
+    >
       <span className="flex h-6 w-6 items-center justify-center text-black">
         {icon}
       </span>
