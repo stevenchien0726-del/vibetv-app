@@ -5,9 +5,10 @@ export const metadata: Metadata = {
   title: 'Vibe TV',
   description: 'Vibe TV App',
   icons: {
-    icon: '/vibetv-icon.png',
-    apple: '/vibetv-apple.png',
-  },
+    export const metadata = {
+  title: 'Vibe TV',
+  description: 'Vibe TV App',
+}
 }
 
 export default function RootLayout({
