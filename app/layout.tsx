@@ -17,6 +17,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        {/* 🔥 這行是關鍵 */}
+        <link rel="apple-touch-icon" href="/vibetv-apple.png" />
+      </head>
       <body>{children}</body>
     </html>
   )
