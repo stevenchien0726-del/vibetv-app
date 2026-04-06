@@ -23,7 +23,7 @@ const recentItems = new Array(10).fill(null)
 const hubItems = [
   { label: 'VIBELINK', icon: '💜' },
   { label: 'VIBEBOOK', icon: '📖' },
-  { label: 'VIBETYPE', icon: '👟' },
+  { label: 'VIBE PURPLE', icon: '👟' },
 ]
 
 export default function ProfilePage() {
