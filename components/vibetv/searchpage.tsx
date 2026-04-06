@@ -77,7 +77,8 @@ export default function SearchPage() {
   }
 
   const topBar = (
-    <div className="mb-5 flex items-center justify-between">
+  <div className="fixed top-0 left-1/2 z-[120] w-full max-w-[430px] -translate-x-1/2 bg-black/80 px-3 pt-4 pb-3 backdrop-blur-md">
+    <div className="flex items-center justify-between">
       <button className="flex h-10 w-10 items-center justify-center">
         <CastScreenIcon />
       </button>
@@ -92,11 +93,12 @@ export default function SearchPage() {
         <Search className="h-8 w-8 text-white" />
       </button>
     </div>
-  )
+  </div>
+)
 
   return (
-    <div className="relative min-h-screen bg-black px-3 pt-4 text-white">
-      <div className="mx-auto flex min-h-[calc(100vh-78px)] w-full max-w-[430px] flex-col">
+    <div className="relative min-h-screen bg-black px-3 pt-[88px] text-white">
+      <div className="mx-auto flex min-h-[calc(100vh-88px)] w-full max-w-[430px] flex-col">
         {/* Top Bar */}
         {topBar}
 
@@ -155,7 +157,7 @@ export default function SearchPage() {
                 ? 'pointer-events-auto bg-black/35 opacity-100'
                 : 'pointer-events-none bg-black/0 opacity-0'
             }`}
-            style={{ top: '84px' }}
+            style={{ top: '88px' }}
           />
 
           {/* AI Sheet */}

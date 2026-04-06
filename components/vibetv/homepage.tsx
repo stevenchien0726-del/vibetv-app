@@ -57,29 +57,33 @@ export default function HomePage() {
   }
 
   return (
-    <div className="min-h-screen bg-black px-3 pt-3 pb-[120px] text-white">
+    <div className="min-h-screen bg-black px-3 pt-[70px] pb-[120px] text-white">
       <div className="mx-auto w-full max-w-[430px]">
-        {/* Tabs */}
-        <div className="mb-3">
-          <div className="relative grid grid-cols-3 rounded-full bg-[#9a9a9a] p-[3px]">
-            <div
-              className="absolute bottom-[3px] left-[3px] top-[3px] w-[calc((100%-6px)/3)] rounded-full bg-[#c982ae] transition-transform duration-300 ease-out"
-              style={{
-                transform: `translateX(${activeIndex * 100}%)`,
-              }}
-            />
+        {/* Fixed Tabs */}
+<div className="fixed top-0 left-1/2 z-[100] w-full max-w-[430px] -translate-x-1/2 bg-black/80 backdrop-blur-md px-3 pt-3 pb-2">
+  <div className="relative grid grid-cols-3 rounded-full bg-[#858585] p-[3px]">
 
-            {tabs.map((tab) => (
-              <button
-                key={tab}
-                onClick={() => setActiveTab(tab)}
-                className="relative z-10 flex h-[46px] items-center justify-center rounded-full text-[16px] font-semibold text-white"
-              >
-                {tab}
-              </button>
-            ))}
-          </div>
-        </div>
+    {/* 滑動膠囊 */}
+    <div
+      className="absolute bottom-[3px] left-[3px] top-[3px] w-[calc((100%-6px)/3)] rounded-full bg-[#C4C4C4] transition-transform duration-300 ease-out"
+      style={{
+        transform: `translateX(${activeIndex * 100}%)`,
+      }}
+    />
+
+    {/* Tabs */}
+    {tabs.map((tab) => (
+      <button
+        key={tab}
+        onClick={() => setActiveTab(tab)}
+        className="relative z-10 flex h-[46px] items-center justify-center rounded-full text-[16px] font-semibold text-white"
+      >
+        {tab}
+      </button>
+    ))}
+
+  </div>
+</div>
 
         {/* 只有瀏覽頁顯示以下內容 */}
         {activeTab === '瀏覽' && (
