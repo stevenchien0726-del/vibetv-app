@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, type Dispatch, type SetStateAction } from 'react'
+import { useEffect, useRef, useState, type Dispatch, type SetStateAction } from 'react'
 import { House, Search, UserRound, type LucideIcon } from 'lucide-react'
 import HomePage from '@/components/vibetv/homepage'
 import SearchPage from '@/components/vibetv/searchpage'
@@ -40,10 +40,36 @@ function BottomNav({
   ]
 
   const activeIndex = items.findIndex((item) => item.key === page)
+  const [isPressed, setIsPressed] = useState(false)
+  const pressTimeoutRef = useRef<NodeJS.Timeout | null>(null)
+
+  const triggerTouchFeedback = () => {
+    setIsPressed(true)
+
+    if (pressTimeoutRef.current) {
+      clearTimeout(pressTimeoutRef.current)
+    }
+
+    pressTimeoutRef.current = setTimeout(() => {
+      setIsPressed(false)
+    }, 160)
+  }
+
+  useEffect(() => {
+    return () => {
+      if (pressTimeoutRef.current) {
+        clearTimeout(pressTimeoutRef.current)
+      }
+    }
+  }, [])
 
   return (
     <div className="sticky bottom-0 z-50 bg-black px-8 pb-4 pt-2">
-      <div className="relative flex h-[58px] items-center rounded-full bg-[#858585] px-[8px]">
+      <div
+        className={`relative flex h-[58px] items-center rounded-full bg-[#858585] px-[8px] transition-transform duration-150 ease-out ${
+          isPressed ? 'scale-[1.025]' : 'scale-100'
+        }`}
+      >
         <div
           className="absolute top-1/2 h-[45px] w-[120px] -translate-y-1/2 rounded-full bg-[#C4C4C4] transition-[left] duration-300 ease-out"
           style={{
@@ -54,7 +80,10 @@ function BottomNav({
         {items.map(({ key, icon: Icon }) => (
           <button
             key={key}
-            onClick={() => setPage(key)}
+            onClick={() => {
+              triggerTouchFeedback()
+              setPage(key)
+            }}
             className="relative z-10 flex flex-1 items-center justify-center"
           >
             <Icon

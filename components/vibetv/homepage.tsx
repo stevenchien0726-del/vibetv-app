@@ -1,6 +1,6 @@
 'use client'
 
-import { useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { ChevronRight } from 'lucide-react'
 
 const tabs = ['瀏覽', '電影', '電視節目'] as const
@@ -41,7 +41,10 @@ const bannerSlides = [
 export default function HomePage() {
   const [activeTab, setActiveTab] = useState<(typeof tabs)[number]>('瀏覽')
   const [currentBanner, setCurrentBanner] = useState(0)
+  const [isTabsPressed, setIsTabsPressed] = useState(false)
+
   const bannerRef = useRef<HTMLDivElement | null>(null)
+  const pressTimeoutRef = useRef<NodeJS.Timeout | null>(null)
 
   const activeIndex = tabs.findIndex((tab) => tab === activeTab)
 
@@ -56,34 +59,59 @@ export default function HomePage() {
     setCurrentBanner(index)
   }
 
+  function triggerTabsTouchFeedback() {
+    setIsTabsPressed(true)
+
+    if (pressTimeoutRef.current) {
+      clearTimeout(pressTimeoutRef.current)
+    }
+
+    pressTimeoutRef.current = setTimeout(() => {
+      setIsTabsPressed(false)
+    }, 160)
+  }
+
+  useEffect(() => {
+    return () => {
+      if (pressTimeoutRef.current) {
+        clearTimeout(pressTimeoutRef.current)
+      }
+    }
+  }, [])
+
   return (
     <div className="min-h-screen bg-black px-3 pt-[70px] pb-[120px] text-white">
       <div className="mx-auto w-full max-w-[430px]">
         {/* Fixed Tabs */}
-<div className="fixed top-0 left-1/2 z-[100] w-full max-w-[430px] -translate-x-1/2 bg-black/80 backdrop-blur-md px-3 pt-3 pb-2">
-  <div className="relative grid grid-cols-3 rounded-full bg-[#858585] p-[3px]">
+        <div className="fixed left-1/2 top-0 z-[100] w-full max-w-[430px] -translate-x-1/2 bg-black/80 px-3 pb-2 pt-3 backdrop-blur-md">
+          <div
+            className={`relative grid grid-cols-3 rounded-full bg-[#858585] p-[3px] transition-transform duration-150 ease-out ${
+              isTabsPressed ? 'scale-[1.025]' : 'scale-100'
+            }`}
+          >
+            {/* 滑動膠囊 */}
+            <div
+              className="absolute bottom-[3px] left-[3px] top-[3px] w-[calc((100%-6px)/3)] rounded-full bg-[#C4C4C4] transition-transform duration-300 ease-out"
+              style={{
+                transform: `translateX(${activeIndex * 100}%)`,
+              }}
+            />
 
-    {/* 滑動膠囊 */}
-    <div
-      className="absolute bottom-[3px] left-[3px] top-[3px] w-[calc((100%-6px)/3)] rounded-full bg-[#C4C4C4] transition-transform duration-300 ease-out"
-      style={{
-        transform: `translateX(${activeIndex * 100}%)`,
-      }}
-    />
-
-    {/* Tabs */}
-    {tabs.map((tab) => (
-      <button
-        key={tab}
-        onClick={() => setActiveTab(tab)}
-        className="relative z-10 flex h-[46px] items-center justify-center rounded-full text-[16px] font-semibold text-white"
-      >
-        {tab}
-      </button>
-    ))}
-
-  </div>
-</div>
+            {/* Tabs */}
+            {tabs.map((tab) => (
+              <button
+                key={tab}
+                onClick={() => {
+                  triggerTabsTouchFeedback()
+                  setActiveTab(tab)
+                }}
+                className="relative z-10 flex h-[46px] items-center justify-center rounded-full text-[16px] font-semibold text-white"
+              >
+                {tab}
+              </button>
+            ))}
+          </div>
+        </div>
 
         {/* 只有瀏覽頁顯示以下內容 */}
         {activeTab === '瀏覽' && (
@@ -97,10 +125,7 @@ export default function HomePage() {
                 style={{ WebkitOverflowScrolling: 'touch' }}
               >
                 {bannerSlides.map((slide) => (
-                  <div
-                    key={slide.id}
-                    className="w-full min-w-full snap-start"
-                  >
+                  <div key={slide.id} className="w-full min-w-full snap-start">
                     <div className={`relative h-[185px] w-full ${slide.gradient}`}>
                       <div className="absolute inset-0 bg-black/10" />
 
@@ -153,7 +178,6 @@ export default function HomePage() {
             <SectionTitle title="推薦影集" className="mt-3" />
             <PosterWall items={recommendItems} />
 
-            {/* VIBE STUDIO */}
             <div className="mt-5">
               <div className="mb-2 text-[22px] font-extrabold leading-none tracking-[0.18em] text-white">
                 VIBE STUDIO
@@ -161,7 +185,6 @@ export default function HomePage() {
               <PosterWall items={vibeStudioItems} />
             </div>
 
-            {/* 傳奇聯盟宇宙 Banner */}
             <div className="mt-5 overflow-hidden rounded-[18px] bg-[#202020]">
               <div className="relative h-[215px] w-full bg-[linear-gradient(135deg,#17253f_0%,#4f759d_35%,#0f0f16_100%)]">
                 <div className="absolute inset-0 bg-black/18" />
@@ -216,11 +239,7 @@ function SectionTitle({
   title: string
   className?: string
 }) {
-  return (
-    <div className={`mb-2 text-[22px] font-medium text-white ${className}`}>
-      {title}
-    </div>
-  )
+  return <div className={`mb-2 text-[22px] font-medium text-white ${className}`}>{title}</div>
 }
 
 function PosterWall({
