@@ -121,7 +121,7 @@ export default function ProfilePage() {
               <MenuItem
                 icon={<Ticket className="h-6 w-6 stroke-[2]" />}
                 label="Vibe會員"
-                onClick={() => window.open('https://vibelink-j9m5-eig7av0if-stevenchien0726-dels-projects.vercel.app/', '_blank')}
+                onClick={() => window.open('https://vibelink-j9m5-nrpr52s4p-stevenchien0726-dels-projects.vercel.app/', '_blank')}
               />
               <MenuItem icon={<UserRound className="h-6 w-6 stroke-[2]" />} label="我的帳號" />
               <MenuItem icon={<LayoutGrid className="h-6 w-6 stroke-[2]" />} label="Vibe Hub" />
