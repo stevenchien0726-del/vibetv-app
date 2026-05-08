@@ -6,7 +6,6 @@ import { ChevronRight } from 'lucide-react'
 const tabs = ['瀏覽', '電影', '電視節目'] as const
 
 const top10Items = new Array(10).fill(null)
-const vibeBookItems = new Array(15).fill(null)
 const recommendItems = new Array(20).fill(null)
 const vibeStudioItems = new Array(15).fill(null)
 const legendaryLeagueItems = new Array(15).fill(null)
@@ -172,8 +171,6 @@ export default function HomePage() {
                 <ChevronRight className="h-4 w-4" />
               </button>
             </div>
-
-            <PosterWall items={vibeBookItems} className="mt-2" />
 
             <SectionTitle title="推薦影集" className="mt-3" />
             <PosterWall items={recommendItems} />

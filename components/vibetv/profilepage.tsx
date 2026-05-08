@@ -22,7 +22,6 @@ const recentItems = new Array(10).fill(null)
 
 const hubItems = [
   { label: 'VIBELINK', icon: '💜' },
-  { label: 'VIBEBOOK', icon: '📖' },
   { label: 'VIBE PURPLE', icon: '👟' },
 ]
 
