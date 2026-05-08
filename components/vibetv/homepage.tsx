@@ -160,18 +160,6 @@ export default function HomePage() {
             <SectionTitle title="台灣Top10" className="mt-2" />
             <PosterWall items={top10Items} />
 
-            <div className="mt-3 flex items-center justify-between">
-              <div className="text-[24px] font-extrabold leading-none">
-                <span className="text-[#c13fff]">VIBE</span>
-                <span className="ml-1 text-[12px] align-middle text-white">BOOK</span>
-              </div>
-
-              <button className="flex items-center gap-1 text-[13px] font-medium text-white">
-                OPEN APP
-                <ChevronRight className="h-4 w-4" />
-              </button>
-            </div>
-
             <SectionTitle title="推薦影集" className="mt-3" />
             <PosterWall items={recommendItems} />
 
